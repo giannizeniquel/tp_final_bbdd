@@ -92,6 +92,8 @@
             $_GET['ruta'] == "crearventa" ||
             $_GET['ruta'] == "crearcompra") {
                 include "vistas/modulos/".$_GET['ruta'].".php";
+            }else{
+                include "vistas/modulos/404.php";
             }
         }else{
             include "vistas/modulos/inicio.php";

@@ -8,6 +8,7 @@
                     <h1 class="m-0">Articulos</h1>
                 </div>
             </div>
+            <hr>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->

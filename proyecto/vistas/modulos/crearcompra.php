@@ -8,6 +8,7 @@
                     <h1 class="m-0">Compras</h1>
                 </div>
             </div>
+            <hr>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->

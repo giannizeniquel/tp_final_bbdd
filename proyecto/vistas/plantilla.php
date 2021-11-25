@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -67,35 +68,42 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="vistas/dist/js/pages/dashboard.js"></script>
     <title>Reciplas</title>
+    <link rel="shortcut icon" href="vistas/img/icon_5bdad26502cdf2c49d19cbbc33573870.ico" />
 </head>
-
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-        <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="vistas/img/preload-reciplas.gif"
-                alt="AdminLTELogo" height="60" width="60">
-        </div> 
-    </div>
-    <!-- ./wrapper -->
-
     <?php
-        include "vistas/modulos/encabezado.php";
-        include "vistas/modulos/menu.php";
-        if(isset($_GET['ruta'])){
-            if ($_GET['ruta'] == "inicio" ||
-            $_GET['ruta'] == "reportes" ||
-            $_GET['ruta'] == "usuarios" ||
-            $_GET['ruta'] == "clientes" ||
-            $_GET['ruta'] == "proveedores" ||
-            $_GET['ruta'] == "articulos" ||
-            $_GET['ruta'] == "crearventa" ||
-            $_GET['ruta'] == "crearcompra") {
-                include "vistas/modulos/".$_GET['ruta'].".php";
+        if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok" ) {
+            echo '<body class="hold-transition sidebar-mini layout-fixed">';
+            echo '<div class="wrapper">
+                        <!-- Preloader -->
+                        <div class="preloader flex-column justify-content-center align-items-center">
+                            <img class="animation__shake" src="vistas/img/preload-reciplas.gif"
+                                alt="Reciplas-Logo" height="60" width="60">
+                        </div> 
+                    </div>';
+            include "vistas/modulos/encabezado.php";
+            include "vistas/modulos/menu.php";
+            if(isset($_GET['ruta'])){
+                if ($_GET['ruta'] == "inicio" ||
+                $_GET['ruta'] == "reportes" ||
+                $_GET['ruta'] == "usuarios" ||
+                $_GET['ruta'] == "clientes" ||
+                $_GET['ruta'] == "proveedores" ||
+                $_GET['ruta'] == "articulos" ||
+                $_GET['ruta'] == "crearventa" ||
+                $_GET['ruta'] == "crearcompra" ||
+                $_GET['ruta'] == "salir") {
+                    include "vistas/modulos/".$_GET['ruta'].".php";
+                }else{
+                    include "vistas/modulos/404.php";
+                }
+            }else{
+                include "vistas/modulos/inicio.php";
             }
+            include "vistas/modulos/footer.php";
+        }else{
+            echo '<body class="hold-transition sidebar-mini layout-fixed login-page">';
+            include "vistas/modulos/login.php";
         }
-        include "vistas/modulos/inicio.php";
-        include "vistas/modulos/footer.php";
     ?>
 </body>
 

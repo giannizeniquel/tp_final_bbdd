@@ -67,6 +67,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="vistas/dist/js/pages/dashboard.js"></script>
     <title>Reciplas</title>
+    <link rel="shortcut icon" href="vistas/img/icon_5bdad26502cdf2c49d19cbbc33573870.ico" />
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

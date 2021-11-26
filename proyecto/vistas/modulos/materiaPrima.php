@@ -113,9 +113,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div>
-                            <input type="text" class="form-control input-lg" name="producto_tiempo_fabricacion" placeholder="Tiempo de fabricación en días">
-                        </div>
+                        <select class="form-control" name="materiaP_calidad">
+                            <option disabled selected>Seleccione calidad</option>
+                            <option value="Buen estado">Buena calidad</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Mala calidad">Mala calidad</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <div>

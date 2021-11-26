@@ -24,8 +24,13 @@
                     <!-- Default box -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Nombre persona</h3>
-
+                            <?php 
+                                if ($_SESSION['nombre'] != "") {
+                                    echo('<h3 class="card-title">'.$_SESSION['nombre'].'</h3>');
+                                }else{
+                                    echo('<h3 class="card-title">Nombre persona</h3>');
+                                }
+                            ?>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                     <i class="fas fa-minus"></i>
@@ -36,14 +41,33 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <strong>Usuario: </strong>
+                        <?php 
+                                if ($_SESSION['usuario'] != "") {
+                                    echo('<strong>Usuario: </strong>'.$_SESSION['usuario']);
+                                }else{
+                                    echo('<strong>Usuario: </strong>');
+                                }
+                            ?>
                         </div>
                         <div class="card-body">
-                            <strong>Area: </strong>
+                        <?php 
+                                if ($_SESSION['perfil'] != "") {
+                                    echo('<strong>Area: </strong>'.$_SESSION['perfil']);
+                                }else{
+                                    echo('<strong>Area: </strong>');
+                                }
+                            ?>
+                            
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <strong>Último inicio de sesión: </strong>
+                        <?php 
+                                if ($_SESSION['ultimo_login_fecha'] != "") {
+                                    echo('<strong>Último inicio de sesión: </strong>'.$_SESSION['ultimo_login_fecha']);
+                                }else{
+                                    echo('<strong>Último inicio de sesión: </strong>');
+                                }
+                            ?>
                         </div>
                         <!-- /.card-footer-->
                     </div>

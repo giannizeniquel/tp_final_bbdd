@@ -26,7 +26,7 @@
                     </button>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="margin-top: 2%;">
                 <div class="col-12">
                     <table class="table table-striped">
                         <thead>
@@ -69,13 +69,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title">Nuevo Pedido - Producto</h1>
+                <h2 class="modal-title">Nuevo Pedido - Producto</h2>
             </div>
             <div class="modal-body">
                 <form role="form" method="POST" action="">
                     <input type="hidden" name="_token" value="">
                     <div class="form-group">
-                        <label class="control-label">Cliente</label>
+                        <div style="text-align: center; background-color: #E67E22; color: #fff;">
+                            <h4 class="control-label">Cliente</h4>
+                        </div>
                         <div>
                             <input type="text" class="form-control input-lg" name="email" value="" placeholder="DNI/CUIT" require>
                             <button type="button" class="btn btn-success col-12" style="margin-top: 1%;">
@@ -88,7 +90,7 @@
                     <div class="form-group">
                         <label class="control-label">Nombre</label>
                         <div>
-                            <input type="text" class="form-control input-lg" name="cliente_nombre" readonly require>
+                            <input type="text" class="form-control input-lg" name="cliente_nombre" readonly  require>
                         </div>
                     </div>
                     <div class="form-group">
@@ -96,6 +98,10 @@
                         <div>
                             <input type="text" class="form-control input-lg" name="cliente_puntos" readonly require>
                         </div>
+                    </div>
+                    <hr>
+                    <div style="text-align: center; background-color: #E67E22; color: #fff;">
+                        <h4 class="control-label">Detalle pedido</h4>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Fecha Pedido</label>
@@ -110,6 +116,7 @@
                             <div class="form-group">
                                 <label>Producto</label>
                                 <select class="form-control" id ="pedido_productos" name="pedido_productos_0" require>
+                                    <option disabled selected>Seleccione una producto</option>
                                     <option value="Prod 2">Prod 1</option>
                                     <option value="Prod 2">Prod 2</option>
                                     <option value="Prod 3">Prod 3</option>
@@ -122,12 +129,19 @@
                                     <input type="text" class="form-control input-lg" name="pedido_prod_cant_0" require>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label">Sub Total</label>
+                                <div>
+                                    <input type="text" class="form-control input-lg" name="pedido_prod_subTotal_0" readonly require>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button type="button" class="btn btn-success col-12" style="margin-top: 1%;" onclick="agregarProducto()">
                         <i class="nav-icon fas fa-plus"></i>
                         Agregar Producto
                     </button>
+                    <hr>
                     <!--  -->
                     <div class="form-group">
                         <label class="control-label">Total</label>
@@ -147,6 +161,7 @@
                     <div class="form-group">
                         <label>Estado</label>
                         <select class="form-control" require>
+                            <option disabled selected>Seleccione un estado de pedido</option>
                             <option value="Enrtegado">Enrtegado</option>
                             <option value="En producción">En producción</option>
                             <option value="Pendiente de producción">Pendiente de producción</option>

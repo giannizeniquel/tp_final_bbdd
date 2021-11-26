@@ -62,11 +62,27 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item" id="menu_articulos">
-                    <a href="articulos" class="nav-link">
+                <li class="nav-item" id="menu_productos">
+                    <a href="producto" class="nav-link">
                         <i class="nav-icon fas fa-boxes"></i>
                         <p>
-                            Articulos
+                            Productos
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item" id="menu_materiaPrima">
+                    <a href="materiaPrima" class="nav-link">
+                        <i class="nav-icon fas fa-box"></i>
+                        <p>
+                            Materia Prima
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item" id="menu_pedidos">
+                    <a href="pedido" class="nav-link">
+                        <i class="nav-icon fas fa-file-invoice"></i>
+                        <p>
+                            Pedidos
                         </p>
                     </a>
                 </li>

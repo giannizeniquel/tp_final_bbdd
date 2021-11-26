@@ -154,7 +154,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <div>
+                        <div style="text-align: center;">
                             <button type="submit" class="btn btn-primary">Registrar pedido</button>
                         </div>
                     </div>

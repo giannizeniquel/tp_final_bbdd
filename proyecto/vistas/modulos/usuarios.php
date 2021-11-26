@@ -132,7 +132,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" id="pedido_productos" name="usuario_area" require >
+                        <select class="form-control" id="pedido_productos" name="usuario_rol" require >
                             <option disabled selected>Seleccione un area o sector</option>
                             <option value="Area 1">Area 1</option>
                             <option value="Area 2">Area 2</option>
@@ -147,6 +147,10 @@
                             </button>
                         </div>
                     </div>
+                    <?php 
+                        $crearUsuario = new ControladorUsuarios();
+                        $crearUsuario -> ctrCrearusuario();
+                    ?>
                 </form>
             </div>
         </div><!-- /.modal-content -->

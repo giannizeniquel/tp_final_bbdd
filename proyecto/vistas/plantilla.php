@@ -88,7 +88,9 @@
                 $_GET['ruta'] == "usuarios" ||
                 $_GET['ruta'] == "clientes" ||
                 $_GET['ruta'] == "proveedores" ||
-                $_GET['ruta'] == "articulos" ||
+                $_GET['ruta'] == "producto" ||
+                $_GET['ruta'] == "pedido" ||
+                $_GET['ruta'] == "materiaPrima" ||
                 $_GET['ruta'] == "crearventa" ||
                 $_GET['ruta'] == "crearcompra" ||
                 $_GET['ruta'] == "salir") {
@@ -105,6 +107,7 @@
             include "vistas/modulos/login.php";
         }
     ?>
+    <script src="vistas/js/plantilla.js"></script>
 </body>
 
 </html>

@@ -19,6 +19,12 @@ function agregarProducto(){
                 <input type="text" class="form-control input-lg" name="pedido_prod_cant_${cont_linea_prod}" require>
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label">Sub Total</label>
+            <div>
+                <input type="text" class="form-control input-lg" name="pedido_prod_subTotal_${cont_linea_prod}" readonly require>
+            </div>
+        </div>
     `;
     div_linea_prod.appendChild(div);
     cont_linea_prod++;

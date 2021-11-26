@@ -69,6 +69,9 @@
     <script src="vistas/dist/js/pages/dashboard.js"></script>
     <title>Reciplas</title>
     <link rel="shortcut icon" href="vistas/img/icon_5bdad26502cdf2c49d19cbbc33573870.ico" />
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
     <?php
         if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok" ) {
@@ -108,6 +111,8 @@
         }
     ?>
     <script src="vistas/js/plantilla.js"></script>
+    <link rel="stylesheet" href="vistas/css/general.css">
+
 </body>
 
 </html>

@@ -89,35 +89,42 @@
                 /* if(preg_match('/^[a-zA-Z0-9]+$/', $_POST['login_us']) &&
                     preg_match('/^[a-zA-Z0-9]+$/', $_POST['login_pass']) ){ */
 
-                    $tabla = "usuarios";
-                    $item = "usuario";
+                    $tabla_persona = "persona";
+                    $tabla_usuario = "usuario";
+                    $item_persona = "email";
+                    $item_id_usuario = "idPersona";
                     $valor = $_POST['login_us'];
-                    $salt = md5($_POST['login_pass']);
-                    $pass_encriptado = crypt($_POST['login_pass'], $salt);
-                    $respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item,$valor);
+
+                    /* $salt = md5($_POST['login_pass']);
+                    $pass_encriptado = crypt($_POST['login_pass'], $salt); */
+
+                    $respuesta_persona = ModeloUsuarios::MdlMostrarUsuarios($tabla_persona, $item_persona, $valor);
+                    $respuesta_usuario = ModeloUsuarios::MdlMostrarUsuarios($tabla_usuario, $item_id_usuario, $respuesta_persona['idPersona']);
+                    $respuesta_usuario_rol = ModeloUsuarios::MdlMostrarUsuarios("usuario_rol", "idUsuario", $respuesta_persona['idPersona']);
+
                     echo '<script>
                                        console.log($respuesta);
                                     </script>';
 
-                    if($respuesta['usuario'] == $_POST['login_us'] && 
-                        $respuesta['password'] == $pass_encriptado){
+                    if($respuesta_persona['email'] == $_POST['login_us'] && 
+                        $respuesta_usuario['contrasena'] == $_POST['login_pass']){
 
                             $_SESSION['iniciarSesion'] = "ok";
-                            $_SESSION['nombre'] = $respuesta['nombre'];
-                            $_SESSION['usuario'] = $respuesta['usuario'];
-                            $_SESSION['perfil'] = $respuesta['perfil'];
-                            $_SESSION['ultimo_login_fecha'] = $respuesta['ultimo_login'];
+                            $_SESSION['nombre'] = $respuesta_persona['nombre'];
+                            $_SESSION['usuario'] = $respuesta_persona['email'];
+                            $_SESSION['perfil'] = $respuesta_usuario_rol['nombreRol'];
+                            $_SESSION['ultimo_login_fecha'] = $respuesta_usuario['ultimaSesion'];
                             
                             //Fecha login
                             date_default_timezone_set("America/Argentina/Buenos_Aires");
                             $fecha = date("y-m-d");
                             $hora = date("H:i:s");
                             $fecha_actual = $fecha." ".$hora;
-                            $item1 = "ultimo_login";
+                            $item1 = "ultimaSesion";
                             $valor1 = $fecha_actual;
-                            $item2 = "id";
-                            $valor2 = $respuesta['id'];
-                            $actualizar_login = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
+                            $item2 = "idPersona";
+                            $valor2 = $respuesta_usuario['idPersona'];
+                            $actualizar_login = ModeloUsuarios::mdlActualizarUsuario("usuario", $item1, $valor1, $item2, $valor2);
                             if($actualizar_login == "ok"){
                                 echo '<script>
                                         window.location = "inicio";

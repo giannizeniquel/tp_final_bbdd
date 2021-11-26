@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Articulos</h1>
+                    <h1 class="m-0">Materia Prima</h1>
                 </div>
             </div>
             <hr>

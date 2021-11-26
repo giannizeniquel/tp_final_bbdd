@@ -31,30 +31,44 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Acciones</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Perfil</th>
+                                <th scope="col">Ultimo login</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            <?php
+                                $item = null;
+                                $valor = null;
+                                $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+                                foreach ($usuarios as $key => $value) {
+                                    echo('
+                                    <tr>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-warning btn-xs btnEditarUsuario" idUsuario="'.$value["id"].'"
+                                                    data-toggle="modal" data-target="#modalEditarUsuario" title="Editar">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </button>
+
+                                                <button class="btn btn-danger btn-xs btnEliminarUsuario" idUsuario="'.$value["id"].'"
+                                                usuario="'.$value['usuario'].'" style="margin-left: 15%; width: 30px;" title="Eliminar">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <th scope="row">'.$value['id'].'</th>
+                                        <td>'.$value['nombre'].'</td>
+                                        <td>'.$value['usuario'].'</td>
+                                        <td>'.$value['perfil'].'</td>
+                                        <td>'.$value['ultimo_login'].'</td>
+                                    </tr>
+                                    ');
+                                }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -65,7 +79,7 @@
 </div>
 <!-- /.content-wrapper -->
 
-<!-- Modal HTML Markup -->
+<!-- Modal HTML Markup AGREGAR-->
 <div id="ModalLoginForm" class="modal fade">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -80,12 +94,12 @@
                     </div>
                     <div class="form-group">
                         <div>
-                            <input type="text" class="form-control input-lg" name="usuario_dni" value="" require placeholder="DNI">
+                            <input type="text" class="form-control input-lg" name="usuario_dni" value="" required placeholder="DNI">
                         </div>
                     </div>
                     <div class="form-group">
                         <div>
-                            <input type="text" class="form-control input-lg" name="usuario_nombre" value="" require placeholder="Apellido y Nombre">
+                            <input type="text" class="form-control input-lg" name="usuario_nombre" value="" required placeholder="Apellido y Nombre">
                         </div>
                     </div>
                     <div class="form-group">
@@ -118,21 +132,21 @@
                     </div>
                     <div class="form-group">
                         <div>
-                            <input type="text" class="form-control input-lg" name="usuario_email" value="" placeholder="Correo electrónico" require>
+                            <input type="text" class="form-control input-lg" name="usuario_email" value="" placeholder="Correo electrónico" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div>
-                            <input type="password" class="form-control input-lg" name="usuario_clave" require placeholder="Contraseña">
+                            <input type="password" class="form-control input-lg" name="usuario_clave" required placeholder="Contraseña">
                         </div>
                     </div>
                     <div class="form-group">
                         <div>
-                            <input type="password" class="form-control input-lg" name="usuario_clave_rep" require placeholder="Repetir contraseña">
+                            <input type="password" class="form-control input-lg" name="usuario_clave_rep" required placeholder="Repetir contraseña">
                         </div>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" id="pedido_productos" name="usuario_rol" require >
+                        <select class="form-control" id="pedido_productos" name="usuario_rol" required >
                             <option disabled selected>Seleccione un area o sector</option>
                             <option value="Area 1">Area 1</option>
                             <option value="Area 2">Area 2</option>
@@ -156,3 +170,96 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- Modal HTML Markup EDITAR-->
+<div id="modalEditarUsuario" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Editar Usuario</h2>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="POST" action="">
+                    <input type="hidden" name="_token" value="">
+                    <div style="text-align: center; background-color: #E67E22; color: #fff;">
+                        <h4>Datos personales</h4>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="text" class="form-control input-lg" name="editar_usuario_dni" value="" required readonly placeholder="DNI">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="text" class="form-control input-lg" id="editar_usuario_nombre" name="editar_usuario_nombre" value="" required placeholder="Apellido y Nombre">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="text" class="form-control input-lg" id="editar_usuario_telefono" name="editar_usuario_telefono" value="" placeholder="Teléfono">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="text" class="form-control input-lg" id="editar_usuario_direccion" name="editar_usuario_direccion" value="" placeholder="Dirección">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="editar_check_profesional" name="editar_check_profesional"> Profesional
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="text" class="form-control input-lg" id="editar_usuario_titulo" name="editar_usuario_titulo" value="" placeholder="Nombre título profesional">
+                        </div>
+                    </div>
+                    <hr>
+                    <div style="text-align: center; background-color: #E67E22; color: #fff;">
+                        <h4>Datos de sesión</h4>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="text" class="form-control input-lg" id="editar_usuario_email" name="editar_usuario_email" value="" placeholder="Correo electrónico" readonly required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="text" class="form-control input-lg" id="editar_usuario_clave" name="editar_usuario_clave" required placeholder="Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="text" class="form-control input-lg" id="editar_usuario_clave_rep" name="editar_usuario_clave_rep" required placeholder="Repetir Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="editar_usuario_rol" name="editar_usuario_rol" required >
+                            <option disabled selected>Seleccione un area o sector</option>
+                            <option value="Area 1">Area 1</option>
+                            <option value="Area 2">Area 2</option>
+                            <option value="Area 3">Area 3</option>
+                            <option value="Area 4">Area 4</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div style="text-align: center;">
+                            <button type="submit" class="btn btn-primary">
+                                Editar usuario
+                            </button>
+                        </div>
+                    </div>
+                    <?php 
+                        $editarUsuario = new ControladorUsuarios();
+                        $editarUsuario -> ctrEditarUsuario();
+                    ?>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script src="vistas/js/usuarios.js"></script>

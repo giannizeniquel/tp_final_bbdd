@@ -110,6 +110,7 @@
                         $respuesta_usuario['contrasena'] == $_POST['login_pass']){
 
                             $_SESSION['iniciarSesion'] = "ok";
+                            $_SESSION['idUsuario'] = $respuesta_persona['idPersona'];
                             $_SESSION['nombre'] = $respuesta_persona['nombre'];
                             $_SESSION['usuario'] = $respuesta_persona['email'];
                             $_SESSION['perfil'] = $respuesta_usuario_rol['nombreRol'];

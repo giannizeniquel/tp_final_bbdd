@@ -27,7 +27,7 @@
                 </div>
             </div>
             <?php
-                $link = new PDO("mysql:host=localhost;dbname=reciplas","root","admin123");
+                $link = new PDO("mysql:host=localhost;dbname=u203885220_reciplas","u203885220_reciplas","Admin123");
                 $link -> exec("set names utf8");
                 $stmt = $link->prepare("SELECT a.id, a.nombre, a.descripcion, p.nombreCategoria, a.cantidad, a.unidadMedida FROM articulo a INNER JOIN producto p ON p.idArticulo = a.id");        
                 $stmt->execute();
@@ -71,7 +71,7 @@
 </div>
 <!-- /.content-wrapper -->
 <?php
-    $link = new PDO("mysql:host=localhost;dbname=reciplas","root","admin123");
+    $link = new PDO("mysql:host=localhost;dbname=u203885220_reciplas","u203885220_reciplas","Admin123");
     $link -> exec("set names utf8");
     $stmt = $link->prepare("SELECT nombre FROM categoria");        
     $stmt->execute();

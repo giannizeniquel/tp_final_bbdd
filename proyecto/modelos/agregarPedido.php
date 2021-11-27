@@ -1,19 +1,18 @@
 <?php
     require_once "conexion.php";
 
-    $stmt = Conexion::conectar()->prepare("SELECT COUNT(*) as id FROM pedido");        
+    $estado = isset($_POST['estado']) ? $_POST['estado'] : die();
+    
+    $stmt = Conexion::conectar()->prepare("INSERT INTO `pedido` (`estado`, `fechaEmitido`, 
+    `precioTotal`, `estaPagado`) VALUES (:id, :estado, NOW(), NULL, NULL)");
+    $stmt->bindParam(":estado", $estado);
+    $stmt->execute();
+
+    $stmt = Conexion::conectar()->prepare("SELECT MAX(numero) AS id FROM pedido");        
     $stmt->execute();
     $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
     $id = $dataRow;
-    $id = $id['id'] + 1;
-
-    $estado = isset($_POST['estado']) ? $_POST['estado'] : die();
-    
-    $stmt = Conexion::conectar()->prepare("INSERT INTO `pedido` (`numero`, `estado`, `fechaEmitido`, 
-    `precioTotal`, `estaPagado`) VALUES (:id, :estado, NOW(), NULL, NULL)");
-    $stmt->bindParam(":id", $id);
-    $stmt->bindParam(":estado", $estado);
-    $stmt->execute();
+    $id = $id['id'];
 
     $dniCliente = $_POST['dni'];
     $stmt = Conexion::conectar()->prepare("SELECT idPersona FROM persona WHERE dni = :dni");
@@ -107,4 +106,4 @@
     }
     
 
-    header("Location:http://localhost/tp_final_bbdd/proyecto/pedido");
+    header("Location:https://sebapegoraro.com/tp_final_bbdd/proyecto/pedido");

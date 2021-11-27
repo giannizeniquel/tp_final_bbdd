@@ -15,6 +15,22 @@
     </div>
     <!-- /.content-header -->
 
+    <?php 
+
+        $month = date('m');
+        $day = date('d');
+        $year = date('Y');
+
+        $today = $day . '/' . $month . '/' . $year;
+
+        $link = new PDO("mysql:host=localhost;dbname=u203885220_reciplas","u203885220_reciplas","Admin123");
+        $link -> exec("set names utf8");
+        $stmt = $link->prepare("SELECT pe.nombre, p.estado, p.estaPagado FROM venta v INNER JOIN pedido p ON p.numero = v.numeroPedido INNER JOIN cliente c ON c.idPersona = v.idCliente INNER JOIN persona pe ON pe.idPersona = c.idPersona");        
+        $stmt->execute();
+        $dataRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    ?>
+
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -31,30 +47,23 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Esta Pagado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                                <?php
+                                    foreach ($dataRow as $key => $value) {
+                                        ?>
+                                        <tr>
+                                        <td><?php echo $value['nombre'] ?></td><?php
+                                        ?><td><?php echo $value['estado'] ?></td><?php
+                                        ?><td><?php echo $value['estaPagado'] != 1 ?  'No' :  'Si'; ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                ?>
                         </tbody>
                     </table>
                 </div>
@@ -73,7 +82,7 @@
 
     $today = $day . '/' . $month . '/' . $year;
 
-    $link = new PDO("mysql:host=localhost;dbname=reciplas","root","admin123");
+    $link = new PDO("mysql:host=localhost;dbname=u203885220_reciplas","u203885220_reciplas","Admin123");
     $link -> exec("set names utf8");
     $stmt = $link->prepare("SELECT a.id, a.nombre, p.precio FROM articulo a INNER JOIN producto p ON p.idArticulo = a.id");        
     $stmt->execute();

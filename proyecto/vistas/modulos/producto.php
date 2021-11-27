@@ -26,35 +26,41 @@
                     </button>
                 </div>
             </div>
+            <?php
+                $link = new PDO("mysql:host=localhost;dbname=reciplas","root","admin123");
+                $link -> exec("set names utf8");
+                $stmt = $link->prepare("SELECT a.id, a.nombre, a.descripcion, p.nombreCategoria, a.cantidad, a.unidadMedida FROM articulo a INNER JOIN producto p ON p.idArticulo = a.id");        
+                $stmt->execute();
+                $dataRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            ?>
             <div class="row" style="margin-top: 2%;">
                 <div class="col-12">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Unidad de Medida</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                                <?php
+                                    foreach ($dataRow as $key => $value) {
+                                        ?>
+                                        <tr>
+                                        <td><?php echo $value['id'] ?></td><?php
+                                        ?><td><?php echo $value['nombre'] ?></td><?php
+                                        ?><td><?php echo $value['descripcion'] ?></td><?php
+                                        ?><td><?php echo $value['nombreCategoria'] ?></td><?php
+                                        ?><td><?php echo $value['cantidad'] ?></td><?php
+                                        ?><td><?php echo $value['unidadMedida'] ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                ?>
                         </tbody>
                     </table>
                 </div>
@@ -64,6 +70,13 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<?php
+    $link = new PDO("mysql:host=localhost;dbname=reciplas","root","admin123");
+    $link -> exec("set names utf8");
+    $stmt = $link->prepare("SELECT nombre FROM categoria");        
+    $stmt->execute();
+    $dataRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 
 <div id="ModalLoginForm" class="modal fade">
     <div class="modal-dialog" role="document">
@@ -72,7 +85,7 @@
                 <h2 class="modal-title">Nuevo Producto</h2>
             </div>
             <div class="modal-body">
-                <form role="form" method="POST" action="">
+                <form role="form" method="POST" action="/tp_final_bbdd/proyecto/modelos/agregarProducto.php">
                     <input type="hidden" name="_token" value="">
                     <div class="form-group">
                         <div style="text-align: center; background-color: #E67E22; color: #fff;">
@@ -98,8 +111,11 @@
                     <div class="form-group">
                         <select class="form-control" name="producto_categoria">
                             <option disabled selected>Seleccione una categoría</option>
-                            <option value="Categoria 1">Categoria 1</option>
-                            <option value="Categoria 2">Categoria 2</option>
+                            <?php
+                                foreach ($dataRow as $key => $value) {
+                                    ?><option value="<?php echo $value['nombre'] ?>"><?php echo $value['nombre'] ?></option><?php
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">

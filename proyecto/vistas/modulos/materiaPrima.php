@@ -26,35 +26,41 @@
                     </button>
                 </div>
             </div>
+            <?php
+                    $link = new PDO("mysql:host=localhost;dbname=reciplas","root","");
+                    $link -> exec("set names utf8");
+                    $stmt = $link->prepare('SELECT a.id, a.nombre, a.descripcion, mp.nombreCategoria, a.cantidad, a.unidadMedida FROM articulo a INNER JOIN materiaprima mp ON mp.idArticulo = a.id');  
+                    $stmt->execute();
+                    $dataRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                ?>
             <div class="row" style="margin-top: 2%;">
                 <div class="col-12">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Código</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Unidad de Medida</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            <?php
+                                foreach ($dataRow as $key => $value) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $value['id'] ?></td><?php
+                                    ?><td><?php echo $value['nombre'] ?></td><?php
+                                    ?><td><?php echo $value['descripcion'] ?></td><?php
+                                    ?><td><?php echo $value['nombreCategoria'] ?></td><?php
+                                    ?><td><?php echo $value['cantidad'] ?></td><?php
+                                    ?><td><?php echo $value['unidadMedida'] ?></td>
+                                </tr>
+                            <?php
+                                }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -72,7 +78,7 @@
                 <h2 class="modal-title">Nueva Materia Prima</h2>
             </div>
             <div class="modal-body">
-                <form role="form" method="POST" action="">
+                <form role="form" method="POST" action="controladores/materiaPrima.controlador.php">
                     <input type="hidden" name="_token" value="">
                     <div class="form-group">
                         <div style="text-align: center; background-color: #E67E22; color: #fff;">
@@ -93,14 +99,24 @@
                     <input type="hidden" name="materiaP_unidad_medida" value="kilogramos">
                     <div class="form-group">
                         <div>
-                            <textarea name="producto_descripcion" rows="3" cols="62" placeholder="Descripción"></textarea>
+                            <textarea name="materiaP_descripcion" rows="3" cols="62" placeholder="Descripción"></textarea>
                         </div>
                     </div>
+                    <?php 
+                        $link = new PDO("mysql:host=localhost;dbname=reciplas","root","");
+                        $link -> exec("set names utf8");
+                        $stmt = $link ->prepare('SELECT nombre FROM categoria');
+                        $stmt -> execute();
+                        $dataRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
                     <div class="form-group">
                         <select class="form-control" name="materiaP_categoria">
                             <option disabled selected>Seleccione una categoría</option>
-                            <option value="Categoria 1">Categoria 1</option>
-                            <option value="Categoria 2">Categoria 2</option>
+                            <?php
+                                foreach ($dataRow as $key => $value) {
+                                    ?><option value="<?php echo $value['nombre'] ?>"><?php echo $value['nombre'] ?></option><?php
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -112,13 +128,28 @@
                             </div>
                         </div>
                     </div>
+                    <?php 
+                        $link = new PDO("mysql:host=localhost;dbname=reciplas","root","");
+                        $link -> exec("set names utf8");
+                        $stmt = $link ->prepare('SELECT calidad FROM preciocalidad');
+                        $stmt -> execute();
+                        $dataRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+
                     <div class="form-group">
                         <select class="form-control" name="materiaP_calidad">
                             <option disabled selected>Seleccione calidad</option>
-                            <option value="Buen estado">Buena calidad</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Mala calidad">Mala calidad</option>
+                            <?php
+                                foreach ($dataRow as $key => $value) {
+                                    ?><option value="<?php echo $value['calidad'] ?>"><?php echo $value['calidad'] ?></option><?php
+                                }
+                            ?>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <textarea name="materiaP_descripcion_calidad" rows="3" cols="62" placeholder="Descripción"></textarea>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div>
@@ -131,6 +162,10 @@
                             <button type="submit" class="btn btn-primary">Ingresar Materia Prima</button>
                         </div>
                     </div>
+                    <?php 
+                        /* $crearMateriaPrima = new ControladorMateriaPrima();
+                        $crearMateriaPrima -> ctrCrearMateriaPrima(); */
+                    ?>
                 </form>
             </div>
         </div><!-- /.modal-content -->

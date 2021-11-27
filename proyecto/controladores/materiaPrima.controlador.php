@@ -2,26 +2,25 @@
 
 require_once "../modelos/conexion.php";
 
-    $stmt = Conexion::conectar()->prepare("SELECT COUNT(*) as id FROM articulo");
-    $stmt->execute();
-    $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
-    $id = $dataRow;
-    $id = $id['id'] + 1;
-
     //articulo
     $nombre = isset($_POST['materiaP_nombre']) ? $_POST['materiaP_nombre'] : die();
     $cantidad = isset($_POST['materiaP_cant']) ? $_POST['materiaP_cant'] : die();
     $unidadMedida = isset($_POST['materiaP_unidad_medida']) ? $_POST['materiaP_unidad_medida'] : die();
     $descripcion = isset($_POST['materiaP_descripcion']) ? $_POST['materiaP_descripcion'] : die();
 
-    $stmt = Conexion::conectar()->prepare("INSERT INTO `articulo` (`id`, `nombre`, `cantidad`, 
-    `unidadMedida`, `descripcion`) VALUES (:id, :nombre, :cantidad, :unidadMedida, :descripcion)");
-    $stmt->bindParam(":id", $id);
+    $stmt = Conexion::conectar()->prepare("INSERT INTO `articulo` (`nombre`, `cantidad`, 
+    `unidadMedida`, `descripcion`) VALUES (:nombre, :cantidad, :unidadMedida, :descripcion)");
     $stmt->bindParam(":nombre", $nombre);
     $stmt->bindParam(":cantidad", $cantidad);
     $stmt->bindParam(":unidadMedida", $unidadMedida);
     $stmt->bindParam(":descripcion", $descripcion);
     $stmt->execute();
+
+    $stmt = Conexion::conectar()->prepare("SELECT MAX(id) AS id FROM articulo");
+    $stmt->execute();
+    $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id = $dataRow;
+    $id = $id['id'];
     
     //materia prima
     $nombreCategoria = isset($_POST['materiaP_categoria']) ? $_POST['materiaP_categoria'] : die();

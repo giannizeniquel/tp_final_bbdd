@@ -27,7 +27,7 @@
                 </div>
             </div>
             <?php
-                    $link = new PDO("mysql:host=localhost;dbname=reciplas","root","");
+                    $link = new PDO("mysql:host=localhost;dbname=reciplas_v2","root","");
                     $link -> exec("set names utf8");
                     $stmt = $link->prepare('SELECT a.id, a.nombre, a.descripcion, mp.nombreCategoria, a.cantidad, a.unidadMedida FROM articulo a INNER JOIN materiaprima mp ON mp.idArticulo = a.id');  
                     $stmt->execute();
@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <?php 
-                        $link = new PDO("mysql:host=localhost;dbname=reciplas","root","");
+                        $link = new PDO("mysql:host=localhost;dbname=reciplas_v2","root","");
                         $link -> exec("set names utf8");
                         $stmt = $link ->prepare('SELECT nombre FROM categoria');
                         $stmt -> execute();
@@ -128,22 +128,13 @@
                             </div>
                         </div>
                     </div>
-                    <?php 
-                        $link = new PDO("mysql:host=localhost;dbname=reciplas","root","");
-                        $link -> exec("set names utf8");
-                        $stmt = $link ->prepare('SELECT calidad FROM preciocalidad');
-                        $stmt -> execute();
-                        $dataRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    ?>
 
                     <div class="form-group">
                         <select class="form-control" name="materiaP_calidad">
                             <option disabled selected>Seleccione calidad</option>
-                            <?php
-                                foreach ($dataRow as $key => $value) {
-                                    ?><option value="<?php echo $value['calidad'] ?>"><?php echo $value['calidad'] ?></option><?php
-                                }
-                            ?>
+                            <option value="Buena Calidad">Buena Calidad</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Mala Calidad">Mala Calidad</option>
                         </select>
                     </div>
                     <div class="form-group">

@@ -47,7 +47,7 @@ require_once "../modelos/conexion.php";
     $stmt->execute();
 
     echo '<script>
-            window.location.replace("http://localhost/tp_final_bbdd/tp_final_bbdd/proyecto/materiaPrima");
+            window.location.replace("https://sebapegoraro.com/tp_final_bbdd/proyecto/materiaPrima");
         </script>';
 
 class ControladorMateriaPrima
